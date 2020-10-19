@@ -49,8 +49,9 @@ def commands():
 @cli_args.RUN_ID
 @click.option("--port", "-p", default=5000, help="Server port. [default: 5000]")
 @click.option("--host", "-h", default="127.0.0.1", help="Server host. [default: 127.0.0.1]")
+@click.option("--thread", "-t", default="1", help="Thread number. [default: 1]")
 @cli_args.NO_CONDA
-def serve(model_path, run_id, port, host, no_conda):
+def serve(model_path, run_id, port, host, no_conda, thread=1):
     """
     Serve a pyfunc model saved with MLflow by launching a webserver on the specified
     host and port. For information about the input data formats accepted by the webserver,
@@ -69,7 +70,7 @@ def serve(model_path, run_id, port, host, no_conda):
         return _rerun_in_conda(conda_env_path)
 
     app = scoring_server.init(load_pyfunc(model_path))
-    app.run(port=port, host=host)
+    app.run(port=port, host=host, processes=thread)
 
 
 @commands.command("predict")
