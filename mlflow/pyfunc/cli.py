@@ -51,7 +51,7 @@ def commands():
 @click.option("--host", "-h", default="127.0.0.1", help="Server host. [default: 127.0.0.1]")
 @click.option("--thread", "-t", default="1", help="Thread number. [default: 1]")
 @cli_args.NO_CONDA
-def serve(model_path, run_id, port, host, no_conda, thread=1):
+def serve(model_path, run_id, port, host, no_conda, thread):
     """
     Serve a pyfunc model saved with MLflow by launching a webserver on the specified
     host and port. For information about the input data formats accepted by the webserver,
